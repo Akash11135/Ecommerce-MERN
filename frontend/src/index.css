@@ -6,6 +6,10 @@ body {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-  background-color: black;
+  background-color: rgba(0, 0, 0, 0.896);
   color: white;
+}
+
+input {
+  background-color: rgba(255, 255, 255, 0.119);
 }

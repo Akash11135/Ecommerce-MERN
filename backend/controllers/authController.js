@@ -66,6 +66,7 @@ const login = async (req, res) => {
 
       const payload = {
         userId: user._id,
+        fullName: user.fullName,
         isAdmin: user.isAdmin,
       };
       const token = jwt.sign(payload, process.env.JWT_SECRET, {
@@ -75,12 +76,15 @@ const login = async (req, res) => {
         res.cookie("login-token", token, {
           httpOnly: true,
           secure: true,
-          sameSite: "Strict",
+          sameSite: "None",
         });
       }
-      return res
-        .status(200)
-        .send({ msg: "successfully logged in.", statusCode: 200 });
+
+      return res.status(200).send({
+        msg: "successfully logged in.",
+        statusCode: 200,
+        payload: payload,
+      });
     }
   } catch (error) {
     console.log("error:", error);
@@ -91,10 +95,10 @@ const login = async (req, res) => {
 const logout = async (req, res) => {
   const token = req.cookies["login-token"];
   if (!token) {
-    return res.json({ mess: "no token, first login." });
+    return res.json({ msg: "no token, first login." });
   }
   res.clearCookie("login-token");
-  res.json({ mess: "logged out successfully" });
+  res.json({ msg: "logged out successfully" });
 };
 
 export { register, login, logout };

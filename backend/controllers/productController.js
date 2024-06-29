@@ -3,7 +3,6 @@ import Product from "../modals/Product.js";
 const getAllProducts = async (req, res) => {
   try {
     const product = await Product.find();
-    console.log(product);
 
     if (product) {
       return res.status(200).json(product);

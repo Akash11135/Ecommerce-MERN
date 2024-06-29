@@ -3,16 +3,23 @@ import { Label } from "../../../components/ui/Label";
 import { Input } from "../../../components/ui/input";
 import { cn } from "../../../utils/cn.ts";
 import { AuroraBackground } from "../../../components/ui/aurora-background";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { Link, NavigateFunction, useNavigate } from "react-router-dom";
 import useRegister from "../../../hooks/AuthHooks/useRegister.ts";
+import { UserContext, UserContextType } from "../../../Context/authContext.tsx";
 
 export default function Register() {
   const [fullName, setFullName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const navigate: NavigateFunction = useNavigate();
+  const { user } = useContext(UserContext) as UserContextType;
+  useEffect(() => {
+    if (user !== null) {
+      navigate("/home");
+    }
+  }, [user]);
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const response: Register = {

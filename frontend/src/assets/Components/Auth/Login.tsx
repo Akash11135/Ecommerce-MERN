@@ -4,15 +4,24 @@ import { Input } from "../../../components/ui/input";
 import { cn } from "../../../utils/cn.ts";
 import { AuroraBackground } from "../../../components/ui/aurora-background";
 
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import useLogin from "../../../hooks/AuthHooks/useLogin.ts";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { UserContext, UserContextType } from "../../../Context/authContext.tsx";
 
 export default function Login() {
+  const navigate = useNavigate();
+  const { user } = useContext(UserContext) as UserContextType;
+
+  useEffect(() => {
+    if (user !== null) {
+      navigate("/home");
+    }
+  }, [user]);
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const navigate = useNavigate();
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const response: User = {
@@ -23,7 +32,9 @@ export default function Login() {
     if (data) {
       if (data.statusCode === 200) {
         toast.success(data.msg);
+        localStorage.setItem("user", JSON.stringify(data.payload));
         navigate("/home");
+        window.location.reload();
       }
       if (data.statusCode === 400) {
         toast.error(data.msg);
@@ -51,6 +62,7 @@ export default function Login() {
           <form className="my-8" onSubmit={handleSubmit}>
             <LabelInputContainer className="mb-4">
               <Label htmlFor="email">Email Address</Label>
+
               <Input
                 id="email"
                 placeholder="projectmayhem@fc.com"
