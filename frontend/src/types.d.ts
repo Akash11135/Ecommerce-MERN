@@ -58,3 +58,14 @@ type Product = {
   images: string[];
   thumbnail: string;
 };
+
+interface CategoryName {
+  slug: string;
+  name: string;
+  url: string;
+}
+type Category = {
+  _id: string;
+  categoryName: CategoryName;
+  products: Product[];
+};

@@ -8,7 +8,7 @@ import {
 import authMiddleware from "../middlewares/authMiddleware.js";
 const router = express.Router();
 
-router.get("/getAllCategories", authMiddleware, getAllCategories);
+router.get("/getAllCategories", getAllCategories);
 router.post("/add-category", authMiddleware, addAnotherCategory);
 router.post("/delete-category", authMiddleware, removeCategory);
 router.post("/update-category", authMiddleware, updateCategory);

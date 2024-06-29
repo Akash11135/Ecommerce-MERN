@@ -18,9 +18,7 @@ const Main = () => {
   const content = (
     <div className="flex w-full gap-3 p-3 flex-wrap justify-evenly">
       {products?.map((item) => (
-        <div key={item.id}>
-          <Card item={item} />
-        </div>
+        <Card key={item._id} item={item} />
       ))}
     </div>
   );
