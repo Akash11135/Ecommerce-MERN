@@ -5,6 +5,7 @@ import Login from "./assets/Components/Auth/Login.tsx";
 import Register from "./assets/Components/Auth/Register.tsx";
 import Profile from "./assets/Components/Profile/Profile.tsx";
 import ProductDetails from "./assets/Components/Products/ProductDetails.tsx";
+import CategoryProduct from "./assets/Components/Home/CategoryProduct.tsx";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
       <Route path="/register" Component={Register} />
       <Route path="/profile" Component={Profile} />
       <Route path="/product/:itemId" Component={ProductDetails} />
+      <Route path="/category/product/:id" Component={CategoryProduct} />
     </Routes>
   );
 }

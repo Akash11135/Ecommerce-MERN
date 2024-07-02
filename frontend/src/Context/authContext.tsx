@@ -1,7 +1,7 @@
 // UserContext.tsx
 import React, { createContext, useState, useEffect, ReactNode } from "react";
 
-interface User {
+export interface AuthUser {
   userId: string;
   fullName: string;
   isAdmin: boolean;
@@ -9,8 +9,8 @@ interface User {
 }
 
 export interface UserContextType {
-  user: User | null;
-  setUser: (user: User | null) => void;
+  user: AuthUser | null;
+  setUser: (user: AuthUser | null) => void;
 }
 
 export const UserContext = createContext<UserContextType | null>(null);
@@ -20,7 +20,7 @@ interface UserProviderProps {
 }
 
 export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<AuthUser | null>(null);
 
   useEffect(() => {
     const userlogged = localStorage.getItem("user");

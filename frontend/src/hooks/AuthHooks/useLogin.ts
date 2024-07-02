@@ -1,8 +1,9 @@
 import axios from "axios";
+import { AuthUser } from "../../Context/authContext";
 type loginResp = {
   msg: string;
   statusCode: number;
-  payload: Object;
+  payload: AuthUser;
 };
 const useLogin = async (email: string, password: string) => {
   try {

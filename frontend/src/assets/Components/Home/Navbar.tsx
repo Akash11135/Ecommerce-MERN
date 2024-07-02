@@ -5,10 +5,13 @@ import { useContext, useEffect } from "react";
 import { UserContext, UserContextType } from "../../../Context/authContext";
 import { useNavigate } from "react-router-dom";
 import CategoryPage from "./CategoryPage";
-
-const Navbar = () => {
+type navbarProps = {
+  setSearch: (search: string | null) => void;
+};
+const Navbar = ({ setSearch }: navbarProps) => {
   const navigate = useNavigate();
-  const { user } = useContext(UserContext) as UserContextType;
+  const { user, setUser } = useContext(UserContext) as UserContextType;
+
   const { logMsg, logout } = useLogout();
 
   const handleLogout = () => {
@@ -17,8 +20,8 @@ const Navbar = () => {
   useEffect(() => {
     if (logMsg?.msg.includes("logged out successfully")) {
       localStorage.removeItem("user");
+      setUser(null);
       toast.success(logMsg?.msg);
-      window.location.reload();
     } else if (logMsg) {
       toast.error(logMsg?.msg);
     }
@@ -33,17 +36,22 @@ const Navbar = () => {
             type="text"
             placeholder="Search"
             className=" w-full p-3 rounded-3xl outline-none border-none "
+            onChange={(e) => setSearch(e.target.value)}
           />
           <IconSearch />
         </form>
         <div className="flex h-full items-center gap-10 mr-4">
           {user ? (
-            <div className="inline-flex gap-4 border border-neutral-300 p-2 rounded-3xl hover:bg-neutral-500 cursor-pointer">
-              <span>{user.fullName}</span>
-              <IconUser
-                className="bg-white text-black rounded-full  "
-                onClick={() => navigate("/profile")}
-              />
+            <div className="flex items-center gap-4 border border-neutral-300 p-2 rounded-3xl hover:bg-neutral-500 cursor-pointer">
+              <div>
+                <span>{user.fullName}</span>
+              </div>
+              <div>
+                <IconUser
+                  className="bg-white text-black rounded-full  "
+                  onClick={() => navigate("/profile")}
+                />
+              </div>
             </div>
           ) : (
             <IconUser

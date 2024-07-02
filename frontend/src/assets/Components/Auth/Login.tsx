@@ -12,7 +12,7 @@ import { UserContext, UserContextType } from "../../../Context/authContext.tsx";
 
 export default function Login() {
   const navigate = useNavigate();
-  const { user } = useContext(UserContext) as UserContextType;
+  const { user, setUser } = useContext(UserContext) as UserContextType;
 
   useEffect(() => {
     if (user !== null) {
@@ -33,8 +33,9 @@ export default function Login() {
       if (data.statusCode === 200) {
         toast.success(data.msg);
         localStorage.setItem("user", JSON.stringify(data.payload));
+        // console.log(data.payload, user);
+        setUser(data.payload);
         navigate("/home");
-        window.location.reload();
       }
       if (data.statusCode === 400) {
         toast.error(data.msg);

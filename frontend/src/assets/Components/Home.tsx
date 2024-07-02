@@ -1,16 +1,19 @@
+import { useState } from "react";
 import Footer from "./Home/Footer";
 import Main from "./Home/Main";
 import Navbar from "./Home/Navbar";
 function Home() {
+  const [search, setSearch] = useState<string | null>(null);
+
   const content = (
     <div className="min-h-screen ">
       <div>
-        <Navbar />
+        <Navbar setSearch={setSearch} />
       </div>
       <div className="">
-        <Main />
+        <Main search={search} />
       </div>
-      <div>
+      <div className="static bottom-0 w-full">
         <Footer />
       </div>
     </div>
